@@ -23,11 +23,6 @@ namespace robotGame
                     animator.SetTrigger("fire");
                     Instantiate(Bullet,firePoint.position,Quaternion.identity);
                 }
-                /*if (Input.GetMouseButtonUp(0))
-                {
-                    animator.SetBool("fire", false);
-                    //Instantiate(Bullet, firePoint.position, Quaternion.identity);
-                }*/
             }
            
     }

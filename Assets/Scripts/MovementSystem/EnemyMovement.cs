@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+namespace RobotGame
 {
-    // Start is called before the first frame update
-    void Start()
+    namespace EnemyMovement
     {
-        
-    }
+        public class EnemyMovement : MonoBehaviour
+        {
+            [SerializeField] private Vector3 Move;
+            void Update()
+            {
+                transform.position += Move * Time.deltaTime;
+            }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        }
     }
 }
