@@ -10,13 +10,8 @@ namespace robotGame
     public class PlayerFire : MonoBehaviour
     {
             public GameObject Bullet;
-            public GameObject BulletHead;
-            public GameObject BulletShoes;
-
             public GameObject FireEffect;
             public Transform firePoint;
-            public Transform firePointHead;
-            public Transform firePointShoes;
             public Animator animator;
             private void Update()
             {
@@ -27,7 +22,7 @@ namespace robotGame
                 if (Input.GetMouseButtonDown(0))
                 {
                     animator.SetTrigger("fire");
-                    Instantiate(Bullet,firePoint.position,Quaternion.identity);
+                    Instantiate(Bullet,firePoint.position,firePoint.rotation);
                 }
             }
            

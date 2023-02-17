@@ -8,35 +8,52 @@ namespace RobotGame
     {
         public class PlayerMovement : MonoBehaviour
         {
-            private float xValue;
+            float xValue;
+            int coinScore;
+            Rigidbody2D rb;
+            bool isFacingRight = true;
             [SerializeField] private float jumpForce;
             [SerializeField] private bool ableToJump;
             [SerializeField] private float moveSpeed;
-
-            // Update is called once per frame
+            private void OnCollisionEnter2D(Collision2D collision)
+            {
+                if (collision.gameObject.tag == "Ground") { ableToJump = true; }
+                if (collision.gameObject.tag == "Coin") { coinScore++; Debug.Log(coinScore); }
+                
+                    
+            }
+            private void Start()
+            {
+                rb = GetComponent<Rigidbody2D>();
+            }
             void Update()
             {
                 MovePlayer();
                 Jump();
+
+                if (xValue > 0 && !isFacingRight) Flip();
+                else if (xValue < 0 && isFacingRight) Flip();
             }
             void MovePlayer()
             {
                xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-               transform.Translate(xValue, 0, 0);
+               transform.position += new Vector3 (xValue, 0, 0);
+                //rb.velocity = new Vector2(xValue, 0);
             }
             void Jump()
             {
                 if (Input.GetKeyDown(KeyCode.Space) && ableToJump == true)
                 {
                     ableToJump = false;
-                    transform.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce);
+                    rb.AddForce(transform.up * jumpForce);
                 }
             }
-            private void OnCollisionEnter2D(Collision2D collision)
+            void Flip()
             {
-                if(collision.gameObject.tag == "Ground") 
-                    ableToJump = true;
+                isFacingRight = !isFacingRight;
+                transform.Rotate(0, 180f, 0);
             }
+            
         }
     }
 }

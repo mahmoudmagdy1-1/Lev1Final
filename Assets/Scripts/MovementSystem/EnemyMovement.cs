@@ -8,10 +8,16 @@ namespace RobotGame
     {
         public class EnemyMovement : MonoBehaviour
         {
-            [SerializeField] private Vector3 Move;
+            [SerializeField] private float moveSpeed = 5f;
+            public Rigidbody2D rb;
+            private void Start()
+            {
+                rb = GetComponent<Rigidbody2D>();
+            }
             void Update()
             {
-                transform.position += Move * Time.deltaTime;
+                rb.AddForce(Vector2.left * moveSpeed);
+                //transform.position += Move * Time.deltaTime;
             }
 
 
